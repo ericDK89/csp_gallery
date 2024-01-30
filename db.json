@@ -1,0 +1,80 @@
+{
+  "list": [
+    {
+      "ean": 12312321,
+      "brand_id": "mobendiawiow",
+      "category_id": "31aeawds21",
+      "images_url": [
+        {
+          "id": 0,
+          "url": "https://images.freeimages.com/image/previews/81f/travel-adventure-wallpaper-5691425.jpg?fmt=webp&w=500"
+        },
+        {
+          "id": 1,
+          "url": "https://images.freeimages.com/image/previews/fa2/animal-shadows-earth-air-water-5691290.jpg?fmt=webp&w=500"
+        },
+        {
+          "id": 2,
+          "url": "https://images.freeimages.com/image/previews/b5a/nature-eco-labels-5691358.jpg?fmt=webp&w=500"
+        },
+        {
+          "id": 3,
+          "url": "https://images.freeimages.com/image/previews/fb3/cute-cat-pattern-background-5691295.jpg?fmt=webp&w=500"
+        },
+        {
+          "id": 4,
+          "url": "https://images.freeimages.com/image/previews/ffd/unity-of-women-poster-5691499.jpg?fmt=webp&w=500"
+        },
+        {
+          "id": 5,
+          "url": "https://images.freeimages.com/image/previews/021/social-connect-illustration-5691472.jpg?fmt=webp&w=500"
+        },
+        {
+          "id": 6,
+          "url": "https://images.freeimages.com/image/previews/181/coffeebrick-badges-5690120.jpg?fmt=webp&w=500"
+        },
+        {
+          "id": 7,
+          "url": "https://images.freeimages.com/vhq/images/previews/3c7/desktop-vector-elements-561434.jpg?fmt=webp&w=500"
+        },
+        {
+          "id": 8,
+          "url": "https://images.freeimages.com/vhq/images/previews/9f2/world-map-07-vector-9869.jpg?fmt=webp&w=500"
+        },
+        {
+          "id": 9,
+          "url": "https://images.pexels.com/photos/7490540/pexels-photo-7490540.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
+        },
+        {
+          "id": 10,
+          "url": "https://images.pexels.com/photos/19898940/pexels-photo-19898940/free-photo-of-coruja-oriental-em-sua-casa.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
+        }
+      ],
+      "manufacture_code": "MB2132",
+      "oem": "12312321",
+      "product_name": "coiso"
+    },
+    {
+      "ean": 12312321,
+      "brand_id": "mobendiawiow",
+      "category_id": "31aeawds21",
+      "images_url": [
+        {
+          "id": 0,
+          "url": "https://img.freepik.com/free-vector/hand-drawn-collage-design_23-2149543516.jpg?w=1380&t=st=1706577522~exp=1706578122~hmac=d5fff5fe4d5b41a927b3881e10271e54fc4f9255e8482aefef5844198af604f5"
+        },
+        {
+          "id": 1,
+          "url":"https://img.freepik.com/free-vector/arabic-ornamental-background-paper-style_23-2148886197.jpg?w=1380&t=st=1706577555~exp=1706578155~hmac=ad1d020ed058a476e268a4e7e995cb5da39e5da3819fcdaf056b436602c16518"
+        },
+        {
+          "id": 2,
+          "url": "https://img.freepik.com/premium-vector/victory-business-achievement-triumph-award-winning-accomplishment-leadership-success-determination-career-success-concept-cheerful-businessman-winner-raising-flag-winning-trophy_212586-2040.jpg?w=1380"
+        }
+      ],
+      "manufacture_code": "MB2132",
+      "oem": "12312321",
+      "product_name": "coiso"
+    }
+  ]
+}

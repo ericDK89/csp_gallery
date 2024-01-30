@@ -1,103 +1,77 @@
-import { useState, useEffect, useCallback, useMemo } from 'react';
-import './App.css';
+import { useEffect, useState } from "react";
+import { api } from "./api";
 
 function App() {
-  const imgUrl = useMemo(() =>  [
-    {
-      id: '1',
-      url: 'https://placehold.co/128'
-    },
-    {
-      id: '2',
-      url: 'https://placehold.co/128'
-    },
-    {
-      id: '3',
-      url: 'https://placehold.co/128'
-    },
-    {
-      id: '4',
-      url: 'https://placehold.co/128'
-    },
-    {
-      id: '5',
-      url: 'https://placehold.co/128'
-    },
-    {
-      id: '6',
-      url: 'https://placehold.co/128'
-    },
-    {
-      id: '7',
-      url: 'https://placehold.co/128'
-    },
-    {
-      id: '8',
-      url: 'https://placehold.co/128'
-    },
-    {
-      id: '9',
-      url: 'https://placehold.co/128'
-    },
-  ], [])
+  const [requestedProducts, setRequestedProducts] = useState([]);
+  const [imagesToShow, setImagesToShow] = useState([]);
+  const [arrayIndex, setArrayIndex] = useState(0);
+  const [itemIndex, setItemIndex] = useState(0);
+  const [imagesToSave, setImagesToSave] = useState([]);
 
-  const [selectedImages, setSelectedImages] = useState([]);
-
-  const handleSelectImg = useCallback((index) => {
-    const selectedImage = imgUrl[index];
-    setSelectedImages((prevSelectedImages) => {
-      if (prevSelectedImages.some((item) => item.index === index)) {
-        return prevSelectedImages.filter((item) => item.index !== index);
-      } else {
-        return [...prevSelectedImages, { index, selectedImage }];
+  // setRequestedProducts GET
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api.get('list');
+        setRequestedProducts(response.data);
+      } catch (error) {
+        console.log('message:', error.message);
       }
-    });
-  }, [imgUrl]);
+    };
+    fetchData();
+  }, []);
+
+  // Function to update images to show based on array and item indices
+  const updateImagesToShow = (arrayIdx, startItemIdx) => {
+    if (requestedProducts.length > 0 && arrayIdx < requestedProducts.length) {
+      setImagesToShow(requestedProducts[arrayIdx].images_url.slice(startItemIdx, startItemIdx + 9));
+    }
+  };
+
+  // Jump to the next set of items in the same array
+  const handleNextButton = () => {
+    if (itemIndex + 9 < requestedProducts[arrayIndex].images_url.length) {
+      setItemIndex(prevItemIndex => prevItemIndex + 9);
+    } else {
+      alert('Sem mais itens neste array');
+    }
+  };
+
+  // Jump to the next array and display its first set of images
+  const handleSaveImages = () => {
+    // Save the current set of images
+    setImagesToSave(prevImages => [...prevImages, ...imagesToShow]);
+    setImagesToShow([]);
+
+    // Move to the next array in the list
+    if (arrayIndex + 1 < requestedProducts.length) {
+      setArrayIndex(prevArrayIndex => prevArrayIndex + 1);
+      setItemIndex(0);
+      updateImagesToShow(arrayIndex + 1, 0);
+    } else {
+      alert('Sem mais arrays com imagens');
+    }
+  };
 
   useEffect(() => {
-    const handleKeyPress = (event) => {
-      const numPadKey = event.code;
-
-      switch (numPadKey) {
-        case 'Numpad1':
-        case 'Numpad2':
-        case 'Numpad3':
-        case 'Numpad4':
-        case 'Numpad5':
-        case 'Numpad6':
-        case 'Numpad7':
-        case 'Numpad8':
-        case 'Numpad9':
-          // eslint-disable-next-line no-case-declarations
-          const index = parseInt(numPadKey.slice(-1)) - 1;
-          handleSelectImg(index);
-          break;
-        default:
-          break;
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyPress);
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyPress);
-    };
-  }, [handleSelectImg]);
-
-  console.log(selectedImages);
+    updateImagesToShow(arrayIndex, itemIndex);
+  }, [arrayIndex, itemIndex, requestedProducts]);
 
   return (
     <>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' }}>
-        {imgUrl.map((item, index) => (
-          <button
-            type='button'
-            key={item.id}
-            onClick={() => handleSelectImg(index)}
-          >
-            <img src={item.url} alt={`Image ${index + 1}`} data-index={index} />
-          </button>
+      <div>
+        {imagesToShow.map(item => (
+          <ul key={item.id}>
+            <img src={item.url} alt={item.url} />
+          </ul>
         ))}
+
+        <button type="button" onClick={handleNextButton}>
+          Próximo
+        </button>
+        <button type="button" onClick={handleSaveImages}>
+          Salvar
+        </button>
       </div>
     </>
   );
