@@ -119,7 +119,7 @@ const GalleryPending = () => {
   if (currentProductIndex >= products.length) {
     return (
       <div style={{ width: '100vw', textAlign: 'center' }}>
-        <p>Acabaram as imagens, para voltar a página inicial clique no botão abaixo.</p>
+        <p>Acabaram os produtos, para voltar a página inicial clique no botão abaixo.</p>
         <a href="#">Retornar a página principal.</a>
       </div>
     )
