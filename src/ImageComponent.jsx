@@ -1,3 +1,4 @@
+import { Box, Typography } from "@mui/material";
 import { useState } from "react";
 
 // eslint-disable-next-line react/prop-types
@@ -14,7 +15,7 @@ export const ImageComponent = ({ imageUrl, index, onImageClick, isSelected, isSu
   };
 
   return (
-    <div style={{
+    <Box sx={{
       position: 'relative',
       cursor: 'pointer',
       overflow: 'hidden',
@@ -39,7 +40,7 @@ export const ImageComponent = ({ imageUrl, index, onImageClick, isSelected, isSu
         }}
       />
       {isHovered && (
-        <div style={{
+        <Box sx={{
           position: 'absolute',
           bottom: 0,
           left: 0,
@@ -54,9 +55,9 @@ export const ImageComponent = ({ imageUrl, index, onImageClick, isSelected, isSu
           whiteSpace: 'nowrap'
         }}>
           {imageUrl}
-        </div>
+        </Box>
       )}
-      <span style={{
+      <Typography component='span' sx={{
         position: 'absolute',
         top: '0',
         right: '0',
@@ -68,7 +69,7 @@ export const ImageComponent = ({ imageUrl, index, onImageClick, isSelected, isSu
         fontSize: '1rem'
       }}>
         {numPadMapping[index]}
-      </span>
-    </div>
+      </Typography>
+    </Box>
   );
 };

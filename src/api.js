@@ -5,5 +5,6 @@ const api = axios.create({
 })
 
 export const getImages = async () => {
-  return await api.get("/list")
+  const { data } = await api.get("/list")
+  return data
 }

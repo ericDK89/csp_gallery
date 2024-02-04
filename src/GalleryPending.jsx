@@ -1,11 +1,12 @@
 import { useEffect, useContext } from 'react';
+import { getImages } from './api'
+import { Link } from 'react-router-dom';
+import { Box, Button, Typography } from '@mui/material';
 
 import { GalleryContext } from "./GalleryContext"
-import { getImages } from './api';
 import { ImageComponent } from './ImageComponent';
 
 const GalleryPending = () => {
-
   const {
     setProducts,
     products,
@@ -30,8 +31,8 @@ const GalleryPending = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await getImages()
-        setProducts(response.data);
+        const response = await getImages();
+        setProducts(response);
       } catch (error) {
         console.error('Erro ao buscar produtos:', error);
       }
@@ -49,7 +50,6 @@ const GalleryPending = () => {
       window.removeEventListener("keyup", handleSuperLikeKey);
     };
   }, [handleSuperLikeKey]);
-
 
   useEffect(() => {
     if (products.length > 0 && currentProductIndex < products.length) {
@@ -102,6 +102,9 @@ const GalleryPending = () => {
           alert('Não há mais imagens para este produto. Pressione Enter para continuar para o próximo produto.');
         }
       } else if (key === 'Enter') {
+        const confirm_save = window.confirm('Deseja salvar as imagens selecionadas?');
+        if (confirm_save === false) return;
+
         saveSelectedImages();
         setCurrentProductIndex((prevIndex) => prevIndex + 1);
         setImageStartIndex(0);
@@ -118,65 +121,77 @@ const GalleryPending = () => {
 
   if (currentProductIndex >= products.length) {
     return (
-      <div style={{ width: '100vw', textAlign: 'center' }}>
-        <p>Acabaram os produtos, para voltar a página inicial clique no botão abaixo.</p>
-        <a href="#">Retornar a página principal.</a>
-      </div>
+      <>
+        <Typography component='h6' variant='body1' sx={{ position: 'fixed', top: '10px', left: '10px' }}>CSP GALLERY</Typography>
+
+        <Box sx={{ width: '100vw', textAlign: 'center' }}>
+          <Typography component='p' variant='body1'>Acabaram os produtos, para voltar a página inicial clique no botão abaixo.</Typography>
+          <Link to='/'>Retornar a página principal.</Link>
+        </Box>
+      </>
     )
   }
 
   return (
-    <div style={{
+    <Box variant='page' sx={{ //! Alterar para Container variant='page'
       display: 'flex',
       justifyContent: 'center',
-      gap: '3rem',
+      gap: '5rem',
       flexDirection: 'row-reverse',
       margin: '0 auto',
       width: '100vw',
+      height: '28rem',
     }}>
 
-      <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-        <div style={{ fontSize: '1.15rem' }}>
-          <p>Nome: {products[currentProductIndex]?.product_name || 'Nome do Produto'}</p>
-          <p>EAN: {products[currentProductIndex]?.ean || 'EAN'}</p>
-          <p>Categoria: {products[currentProductIndex]?.category_id}</p>
-          <p>Marca: {products[currentProductIndex]?.brand_id}</p>
-          <p>OEM: {products[currentProductIndex]?.oem}</p>
-          <p>Código de Fabricação: {products[currentProductIndex]?.manufacture_code}</p>
-        </div>
+      <Typography component='h6' variant='body1' sx={{ position: 'fixed', top: '10px', left: '10px' }}>CSP GALLERY</Typography>
 
-        <div style={{
+      <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+        <Box>
+          <Typography component='p' variant='body1' sx={{ fontSize: '1.25rem' }}>Nome: {products[currentProductIndex]?.product_name || 'Nome do Produto'}</Typography>
+          <Typography component='p' variant='body1' sx={{ fontSize: '1.25rem' }}>EAN: {products[currentProductIndex]?.ean || 'EAN'}</Typography>
+          <Typography component='p' variant='body1' sx={{ fontSize: '1.25rem' }}>Categoria: {products[currentProductIndex]?.category_id}</Typography>
+          <Typography component='p' variant='body1' sx={{ fontSize: '1.25rem' }}>Marca: {products[currentProductIndex]?.brand_id}</Typography>
+          <Typography component='p' variant='body1' sx={{ fontSize: '1.25rem' }}>OEM: {products[currentProductIndex]?.oem}</Typography>
+          <Typography component='p' variant='body1' sx={{ fontSize: '1.25rem' }}>Código de Fabricação: {products[currentProductIndex]?.manufacture_code}</Typography>
+        </Box>
+
+        <Box sx={{
           display: 'flex',
           alignItems: 'end',
           marginTop: '20px',
           gap: '20px'
         }}>
-          <button
+          <Button
             onClick={goToNextImages}
-            style={{
+            sx={{
               padding: '10px',
+              backgroundColor: 'orange',
             }}
           >
             Próximo
-          </button>
+          </Button>
 
-          <button
+          <Button
             onClick={saveAndGoToNextProduct}
-            style={{
+            sx={{
               padding: '10px',
               height: '100px',
               width: 'min-content',
+              backgroundColor: 'orange',
             }}
           >
             Salvar
-          </button>
-        </div>
-      </div>
+          </Button>
+        </Box>
+      </Box>
 
-      <div style={{
+      <Box sx={{
         display: 'grid',
         gridTemplateColumns: '1fr 1fr 1fr',
-        gap: '1rem'
+        gap: '1rem',
+        padding: '1rem',
+        borderRadius: '8px',
+        backgroundColor: 'gray'
       }}>
         {displayedImages.map((imageUrl, index) => {
           const isSelected = selectedImages.has(imageUrl);
@@ -193,8 +208,8 @@ const GalleryPending = () => {
             />
           );
         })}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 

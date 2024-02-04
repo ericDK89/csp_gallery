@@ -55,6 +55,10 @@ const GalleryProvider = ({ children }) => {
   };
 
   const saveAndGoToNextProduct = () => {
+    const confirm_save = window.confirm('Deseja salvar as imagens selecionadas?');
+
+    if (confirm_save === false) return;
+
     saveSelectedImages();
     setCurrentProductIndex((prevIndex) => prevIndex + 1);
     setImageStartIndex(0);
@@ -78,6 +82,8 @@ const GalleryProvider = ({ children }) => {
     }
 
     console.log('Imagens Salvas:', output);
+    //* axios.post('http://localhost:3000/save', output);
+
     setSelectedImages(new Set());
     setSuperLikes(new Map());
   };
