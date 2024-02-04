@@ -8,3 +8,7 @@ export const getImages = async () => {
   const { data } = await api.get("/list")
   return data
 }
+
+export const postImage = async (data) => {
+  await api.post("/upload", data)
+}
